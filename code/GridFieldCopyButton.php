@@ -70,6 +70,10 @@ class GridFieldCopyButton implements GridField_ColumnProvider, GridField_ActionP
             $clone = $item->duplicate();
             if (!$clone || $clone->ID < 1) {
                 user_error("Error Duplicating!", E_USER_ERROR);
+            } else {
+                if(method_exists($clone, 'onAfterCloned')) {
+                    $clone->onAfterCloned();
+                }
             }
         }
     }
